@@ -5,13 +5,13 @@ import { useState } from 'react'
 import { api } from '~/trpc/react'
 
 export function LatestPost() {
-	const [latestPost] = api.post.getLatest.useSuspenseQuery()
+	const [latestPost] = api.cycle.getCurrent.useSuspenseQuery()
 
 	const utils = api.useUtils()
 	const [name, setName] = useState('')
-	const createPost = api.post.create.useMutation({
+	const createCycle = api.cycle.create.useMutation({
 		onSuccess: async () => {
-			await utils.post.invalidate()
+			await utils.cycle.invalidate()
 			setName('')
 		}
 	})
@@ -19,14 +19,16 @@ export function LatestPost() {
 	return (
 		<div className="w-full max-w-xs">
 			{latestPost ? (
-				<p className="truncate">Your most recent post: {latestPost.name}</p>
+				<p className="truncate">
+					Your most recent post: {latestPost.startDate.toString()}
+				</p>
 			) : (
 				<p>You have no posts yet.</p>
 			)}
 			<form
 				onSubmit={(e) => {
 					e.preventDefault()
-					createPost.mutate({ name })
+					createCycle.mutate()
 				}}
 				className="flex flex-col gap-2"
 			>
@@ -40,9 +42,9 @@ export function LatestPost() {
 				<button
 					type="submit"
 					className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
-					disabled={createPost.isPending}
+					disabled={createCycle.isPending}
 				>
-					{createPost.isPending ? 'Submitting...' : 'Submit'}
+					{createCycle.isPending ? 'Submitting...' : 'Submit'}
 				</button>
 			</form>
 		</div>
