@@ -22,5 +22,13 @@
 			},
 			"recommended": true
 		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "asNeeded",
+			"trailingCommas": "none",
+			"attributePosition": "multiline"
+		}
 	}
 }
