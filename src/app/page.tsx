@@ -5,8 +5,8 @@ import { auth } from '~/server/auth'
 import { HydrateClient, api } from '~/trpc/server'
 
 export default async function Home() {
-  const hello = await api.cycle.getCurrent()
-  console.log(hello)
+  // const hello = await api.cycle.getCurrent()
+  // console.log(hello)
   const session = await auth()
 
   if (session?.user) {
@@ -46,7 +46,7 @@ export default async function Home() {
           </div>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
-              {hello ? hello.startDate.toString() : 'Loading tRPC query...'}
+              {/* {hello ? hello.startDate.toString() : 'Loading tRPC query...'} */}
             </p>
 
             <div className="flex flex-col items-center justify-center gap-4">
